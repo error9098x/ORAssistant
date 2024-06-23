@@ -9,6 +9,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 
 from dotenv import load_dotenv
 
+
 class UserInput(BaseModel):
     query: str
     listSources: bool = False
