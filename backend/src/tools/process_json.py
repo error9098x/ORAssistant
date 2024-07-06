@@ -1,5 +1,6 @@
 import json
-from langchain.docstore.document import Document as LangchainDocument
+
+from langchain.docstore.document import Document
 
 
 def parse_json(json_object) -> str:
@@ -13,7 +14,7 @@ def parse_json(json_object) -> str:
     return parsed_text
 
 
-def generate_knowledge_base(file_paths: list[str]) -> list[str]:
+def generate_knowledge_base(file_paths: list[str]) -> list[Document]:
     json_knowledge_base = []
     for file_path in file_paths:
         try:
@@ -23,7 +24,7 @@ def generate_knowledge_base(file_paths: list[str]) -> list[str]:
                     try:
                         json_object = json.loads(line)
                         json_knowledge_base.append(
-                            LangchainDocument(
+                            Document(
                                 page_content=str(parse_json(json_object)),
                                 metadata={"source": file_path},
                             )
