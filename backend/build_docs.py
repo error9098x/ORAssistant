@@ -317,6 +317,25 @@ def build_manpages() -> None:
 
     source_dict.update(copy_tree_track_src(src_dir, dest_dir))
     logging.debug('Copied manpages to data/markdown/manpages.')
+    
+    #Appending Filenames to man2
+    man2_dir = os.path.join(dest_dir, 'man2')
+    if os.path.exists(man2_dir):
+        for filename in os.listdir(man2_dir):
+            if filename.endswith('.md'):
+                file_path = os.path.join(man2_dir, filename)
+                
+                with open(file_path, 'r') as file:
+                    lines = file.readlines()
+                
+                if not lines or '---' in lines[0]:
+                    continue
+                
+                title = f"------------------------------\ntitle: {filename}\n------------------------------\n"
+                lines.insert(0, title)
+                
+                with open(file_path, 'w') as file:
+                    file.writelines(lines)
 
     logging.debug('Finished building manpages.')
 
