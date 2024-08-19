@@ -33,7 +33,7 @@ def translate_chat_history_to_api(chat_history: list[dict[str, str]], max_pairs:
     Returns:
     - list: The chat history formatted for the API.
     """
-    api_format = []
+    api_format: List[dict] = []  # Type annotation
     # Skip the first AI message (starter message) and get the last messages
     relevant_history = [msg for msg in chat_history[1:] if msg['role'] in ['user', 'ai']]
     
